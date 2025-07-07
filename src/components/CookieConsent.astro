@@ -1,0 +1,45 @@
+---
+---
+
+<div id="cookie-banner" style="display:none;position:fixed;bottom:0;width:100%;background:#000;color:#fff;padding:1rem;text-align:center;z-index:1000;">
+  Questo sito utilizza cookie di terze parti (Google Analytics). Accetti?
+  <button id="accept-cookies" style="margin-left:1rem;">Accetta</button>
+</div>
+
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', function () {
+    const consent = localStorage.getItem('cookie_consent');
+    const banner = document.getElementById('cookie-banner');
+
+    if (consent !== 'true') {
+      banner.style.display = 'block';
+    } else {
+      loadGoogleAnalytics();
+    }
+
+    document.getElementById('accept-cookies').addEventListener('click', function () {
+      localStorage.setItem('cookie_consent', 'true');
+      banner.style.display = 'none';
+      loadGoogleAnalytics();
+    });
+
+    function loadGoogleAnalytics() {
+      if (window.gtagLoaded) return;
+      window.gtagLoaded = true;
+
+      const script1 = document.createElement('script');
+      script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX'; // <--- cambia con il tuo ID
+      script1.async = true;
+      document.head.appendChild(script1);
+
+      const script2 = document.createElement('script');
+      script2.innerHTML = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-0GG9VZJ9J4', { anonymize_ip: true });
+      `;
+      document.head.appendChild(script2);
+    }
+  });
+</script>
