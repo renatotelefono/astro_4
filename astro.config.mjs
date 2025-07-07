@@ -4,10 +4,10 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://example.com',
-  output: 'static', // ✅ Sito statico
+  site: 'https://example.com', // metti qui il tuo dominio finale se lo hai
+  output: 'static',            // ✅ static site
   integrations: [mdx(), sitemap()],
   build: {
-    outDir: './dist', // ✅ Cartella output (opzionale, è il default)
+    outDir: './dist',          // ✅ Render userà questa cartella
   },
 });
