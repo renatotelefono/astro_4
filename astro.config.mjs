@@ -7,7 +7,5 @@ export default defineConfig({
   site: 'https://example.com', // metti qui il tuo dominio finale se lo hai
   output: 'static',            // ✅ static site
   integrations: [mdx(), sitemap()],
-  build: {
-    outDir: './dist',          // ✅ Render userà questa cartella
-  },
+ 
 });
