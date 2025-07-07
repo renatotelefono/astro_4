@@ -1,14 +1,22 @@
 ---
 const GA_ID = 'G-0GG9VZJ9J4';
 const isProduction = import.meta.env.PROD;
-console.log('🔍 Analytics component caricato, isProduction:', isProduction);
+
+const analyticsScript = `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${GA_ID}');
+`;
 ---
 
-<div style="background: red; color: white; padding: 10px;">
-  Analytics component loaded. isProduction = {isProduction ? 'true' : 'false'}
-</div>
+{isProduction && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+    <script set:html={analyticsScript} />
+  </>
+)}
 
-<script>
-  console.log('🟢 Script base funziona');
-  console.log('🔍 Ambiente:', import.meta.env.PROD ? 'PRODUZIONE' : 'DEVELOPMENT');
-</script>
+<div style="background: red; color: white; padding: 10px;">
+  Analytics attivo: {isProduction ? 'SI' : 'NO'}
+</div>
