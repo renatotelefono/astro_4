@@ -1,0 +1,18 @@
+---
+const GA_ID = 'G-0GG9VZJ9J4';
+const isProduction = import.meta.env.PROD;
+
+const gaScript = `
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '${GA_ID}');
+`;
+---
+
+{isProduction && (
+  <>
+    <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+    <script set:html={gaScript} />
+  </>
+)}
