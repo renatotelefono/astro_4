@@ -3,9 +3,11 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
-// https://astro.build/config
 export default defineConfig({
-	site: 'https://example.com',
-	integrations: [mdx(), sitemap()],
-	output: 'server',
+  site: 'https://example.com',
+  output: 'static', // ✅ Sito statico
+  integrations: [mdx(), sitemap()],
+  build: {
+    outDir: './dist', // ✅ Cartella output (opzionale, è il default)
+  },
 });
