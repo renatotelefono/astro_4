@@ -13,6 +13,9 @@ const gaScript = `
 console.log('isProduction:', isProduction);
 ---
 
+<!-- Mostro sempre questo per capire se il componente viene renderizzato -->
+<div>Analytics component loaded. isProduction = {isProduction ? 'true' : 'false'}</div>
+
 {isProduction && (
   <>
     <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
