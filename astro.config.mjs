@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  site: 'https://example.com', // metti qui il tuo dominio finale se lo hai
+  site: 'https://astro-4-0f23.onrender.com/', // metti qui il tuo dominio finale se lo hai
   output: 'static',            // ✅ static site
   integrations: [mdx(), sitemap()],
  
