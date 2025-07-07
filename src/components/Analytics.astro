@@ -3,17 +3,16 @@ const GA_ID = 'G-0GG9VZJ9J4';
 const isProduction = import.meta.env.PROD;
 
 const gaScript = `
-  console.log('✅ Google Analytics script eseguito');
+  console.log('✅ Google Analytics script eseguito in produzione');
   window.dataLayer = window.dataLayer || [];
   function gtag(){ window.dataLayer.push(arguments); }
   gtag('js', new Date());
-  gtag('config', '${GA_ID}');
+  gtag('config', '${GA_ID}', {
+    page_title: document.title,
+    page_location: window.location.href
+  });
 `;
-
-console.log('isProduction:', isProduction);
 ---
-
-<div>Analytics component loaded. isProduction = {isProduction ? 'true' : 'false'}</div>
 
 {isProduction && (
   <>
