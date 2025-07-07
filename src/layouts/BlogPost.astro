@@ -5,7 +5,6 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import { Image } from 'astro:assets';
-import CookieConsent from '../components/CookieConsent.astro'; // <-- nuovo import
 
 type Props = CollectionEntry<'blog'>['data'];
 const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
@@ -80,6 +79,51 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 			</article>
 		</main>
 		<Footer />
-		<CookieConsent /> <!-- <-- AGGIUNTO QUI -->
+
+		<!-- BANNER COOKIE -->
+		<div id="cookie-banner" style="display:none;position:fixed;bottom:0;width:100%;background:#000;color:#fff;padding:1rem;text-align:center;z-index:1000;">
+			Questo sito utilizza cookie di terze parti (Google Analytics). Accetti?
+			<button id="accept-cookies" style="margin-left:1rem;">Accetta</button>
+		</div>
+
+		<!-- SCRIPT per consenso -->
+		<script is:inline>
+			document.addEventListener('DOMContentLoaded', function () {
+				const banner = document.getElementById('cookie-banner');
+				const consent = localStorage.getItem('cookie_consent');
+				console.log('[Consent Check]', consent);
+
+				if (consent !== 'true') {
+					banner.style.display = 'block';
+				} else {
+					loadGA();
+				}
+
+				document.getElementById('accept-cookies').addEventListener('click', function () {
+					localStorage.setItem('cookie_consent', 'true');
+					banner.style.display = 'none';
+					loadGA();
+				});
+
+				function loadGA() {
+					if (window.gtagLoaded) return;
+					window.gtagLoaded = true;
+
+					const s1 = document.createElement('script');
+					s1.src = 'https://www.googletagmanager.com/gtag/js?id=G-0GG9VZJ9J4'; // <-- CAMBIA CON IL TUO ID!
+					s1.async = true;
+					document.head.appendChild(s1);
+
+					const s2 = document.createElement('script');
+					s2.innerHTML = `
+						window.dataLayer = window.dataLayer || [];
+						function gtag(){dataLayer.push(arguments);}
+						gtag('js', new Date());
+						gtag('config', 'G-0GG9VZJ9J4', { anonymize_ip: true });
+					`;
+					document.head.appendChild(s2);
+				}
+			});
+		</script>
 	</body>
 </html>
